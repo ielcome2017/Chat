@@ -32,9 +32,6 @@ class TcpSocket(QTcpSocket):
             event_id = stream.readQString()
             event_msg = stream.readQVariantList()
 
-            print(event_id)
-            print(event_msg)
-
             self.sign_recv.emit(event_id, event_msg)
 
     def slot_send(self, event_id, event_msg):

@@ -1,7 +1,7 @@
 from PyQt5.QtNetwork import QTcpServer
-from src.server.tools import *
+from PyQt5.QtCore import pyqtSignal, pyqtSlot
 
-from src.server.tools.thread_ import Thread
+from server.src.tools.thread_ import Thread
 
 
 class TcpServer(QTcpServer):

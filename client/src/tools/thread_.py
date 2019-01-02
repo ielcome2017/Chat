@@ -3,7 +3,7 @@
 """
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from src.client.tools.tcpsocket import TcpSocket
+from client.src.tools.tcpsocket import TcpSocket
 
 
 class Thread(QThread):

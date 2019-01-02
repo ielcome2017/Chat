@@ -1,10 +1,13 @@
-from PyQt5 import QtWidgets, QtCore, QtGui
-from PyQt5.QtCore import pyqtSignal
+from PyQt5 import QtWidgets
 from PyQt5.QtNetwork import QHostAddress
 
-from src.server.tools.tcpserver import TcpServer
-from src.server.ui.ui_server import UI_Server
+import sys
+sys.path.insert(0, "/home/lee/Project/Chat/")    # 把上级目录添加到环境变量中
 
+print(sys.path)
+
+from server.src.tools.tcpserver import TcpServer
+from server.src.ui.ui_server import UI_Server
 
 PORT = 10086
 
