@@ -11,9 +11,9 @@ class UI_Server(object):
         # 用户列表
         vboxlayer_1 = QtWidgets.QVBoxLayout()
         self.lb_userlist= QtWidgets.QLabel()
-        self.listWdt_userlist = QtWidgets.QListView()
+        self.lv_userlist = QtWidgets.QListView()
         vboxlayer_1.addWidget(self.lb_userlist)
-        vboxlayer_1.addWidget(self.listWdt_userlist)
+        vboxlayer_1.addWidget(self.lv_userlist)
 
         # 聊天记录
         vboxlayer_2 = QtWidgets.QVBoxLayout()

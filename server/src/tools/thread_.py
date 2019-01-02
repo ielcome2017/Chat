@@ -7,27 +7,26 @@ from server.src.tools.tcpsocket import TcpSocket
 
 
 class Thread(QThread):
-    sign_recv = pyqtSignal(str, object)
+    """
+    sign_thread_recv信号向上连接tcpServer中的sign_server_recv函数，下接tcpSocket中的sign_recv信号
+    sign_thread_send信号从上得到信息，发送给socket的sign_send信号
+    """
     sign_thread_recv = pyqtSignal(str, object, object)
-
     sign_thread_send = pyqtSignal(str, object)
 
     def __init__(self, socket_id, parent=None):
         super(Thread, self).__init__(parent)
         self.socket_id = socket_id
 
-        self.sign_recv.connect(self.slot_recv)
-
-
     def run(self):
         socket = TcpSocket(self.socket_id)
         if not socket.setSocketDescriptor(self.socket_id):
             return
-        socket.sign_recv.connect(self.sign_recv)
 
+        # socket中sing_recv信号被触发，就意味着得到信息，传递给线程，线程再交付给tcpServer
+        socket.sign_recv.connect(self.sign_thread_recv)
+        # 线程得到tcpServer中的信息，然后交付给socket发送出去
         self.sign_thread_send.connect(socket.sign_send)
 
         self.exec_()
 
-    def slot_recv(self, event_id, event_msg):
-        self.sign_thread_recv.emit(event_id, self.socket_id, event_msg)
