@@ -16,6 +16,8 @@ class Client(QtWidgets.QWidget, UI_Client):
     sign_send = pyqtSignal(str, object)
     sign_update_name = pyqtSignal(str)
 
+    sign_set = pyqtSignal(str, int)
+
     def __init__(self, parent=None):
         super(Client, self).__init__(parent)
         # 界面定义
@@ -25,13 +27,24 @@ class Client(QtWidgets.QWidget, UI_Client):
 
         # 参数
         self.name = "default"
+        self.ip = "localhost"
+        self.port = self.txt_port.text()
+
+        self.btn_set.clicked.connect(self.on_btnSet_cliced)
 
         # 开启线程
         self.start_thread()
+    
+    @pyqtSlot()
+    def on_btnSet_cliced(self):
+        self.ip = self.txt_ip.text()
+        self.port = int(self.txt_port.text())
+        self.sign_set.emit(self.ip, self.port)
 
     def start_thread(self):
         thread = Thread(self)
         thread.start()
+        self.sign_set.connect(thread.sign_thread_set)
         # 把用户交互的数据通过sign_send传递给thread.sign_thread_send
         self.sign_send.connect(thread.sign_thread_send)
         # 把其他用户交互的数据通过thread.sign_thread_recv交付给sign_recv
@@ -55,6 +68,7 @@ class Client(QtWidgets.QWidget, UI_Client):
         msg = self.txt_input.text()
         event_id = "0001"
         event_msg = [name, msg]
+        print(event_id)
 
         self.sign_send.emit(event_id, event_msg)
 

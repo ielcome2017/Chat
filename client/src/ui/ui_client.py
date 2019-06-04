@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 
-
+PORT = 10086
 class UI_Client(object):
     def setupUI(self, Form: QtWidgets.QWidget):
 
@@ -8,6 +8,25 @@ class UI_Client(object):
 
         # 整体布局
         hboxlayer_1 = QtWidgets.QHBoxLayout()
+
+        # set ip
+        self.lb_ip = QtWidgets.QLabel("服务器IP：")
+        self.txt_ip = QtWidgets.QLineEdit()
+
+        self.lb_port = QtWidgets.QLabel("服务器端口:")
+        self.txt_port = QtWidgets.QLineEdit(str(PORT))
+        self.btn_set = QtWidgets.QPushButton("设置端口")
+        self.btn_set.setObjectName("btnSet")
+
+        ip_hboxlayer = QtWidgets.QHBoxLayout()
+        for item in [self.lb_ip, self.txt_ip]:
+            ip_hboxlayer.addWidget(item)
+        port_hboxlayer = QtWidgets.QHBoxLayout()
+        for item in [self.lb_port, self.txt_port, self.btn_set]:
+            port_hboxlayer.addWidget(item)
+        # hboxlayer.addWidget(self.lb_ip)
+        # hboxlayer.addWidget(self.txt_ip)
+        # hboxlayer.addWidget(self.btn_setip)
 
         # 用户列表
         vboxlayer_1 = QtWidgets.QVBoxLayout()
@@ -20,6 +39,10 @@ class UI_Client(object):
         vboxlayer_2 = QtWidgets.QVBoxLayout()
         self.lb_msg = QtWidgets.QLabel()
         self.tbrs_msg = QtWidgets.QTextBrowser()
+
+        # ip, port控件添加
+        vboxlayer_2.addLayout(ip_hboxlayer)
+        vboxlayer_2.addLayout(port_hboxlayer)
         vboxlayer_2.addWidget(self.lb_msg)
         vboxlayer_2.addWidget(self.tbrs_msg)
 

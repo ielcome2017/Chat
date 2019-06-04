@@ -15,11 +15,14 @@ class Thread(QThread):
 
     sign_thread_start = pyqtSignal(object)
 
+    sign_thread_set = pyqtSignal(str, int)
+
     def __init__(self, parent=None):
         super(Thread, self).__init__(parent)
-
     def run(self):
         socket = TcpSocket()
+
+        self.sign_thread_set.connect(socket.ip_port_set)
         socket.sign_recv.connect(self.sign_thread_recv)
         self.sign_thread_send.connect(socket.sign_send)
 

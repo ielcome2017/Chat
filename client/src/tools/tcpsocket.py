@@ -1,6 +1,8 @@
 from PyQt5.QtNetwork import QTcpSocket, QAbstractSocket
 from PyQt5.QtCore import QDataStream, pyqtSignal, QByteArray, QIODevice
+from PyQt5.QtNetwork import QHostAddress
 
+IP = "0.0.0.0"
 PORT = 10086
 SIZE_OF_UINT16 = 2
 
@@ -13,10 +15,14 @@ class TcpSocket(QTcpSocket):
     def __init__(self, parent=None):
         super(TcpSocket, self).__init__(parent)
 
-        self.connectToHost("localhost", PORT)
+        self.connectToHost("0.0.0.0", PORT)
 
         self.readyRead.connect(self.slot_readyRead)
         self.sign_send.connect(self.slot_send)
+    
+    def ip_port_set(self, ip, port):
+        print(ip, port)
+        self.connectToHost(ip, int(port))
 
     def slot_readyRead(self):
         min_block_size = SIZE_OF_UINT16
