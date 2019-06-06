@@ -11,18 +11,20 @@ class UI_Client(object):
 
         # set ip
         self.lb_ip = QtWidgets.QLabel("服务器IP：")
-        self.txt_ip = QtWidgets.QLineEdit()
+        self.txt_ip = QtWidgets.QLineEdit("localhost")
 
         self.lb_port = QtWidgets.QLabel("服务器端口:")
         self.txt_port = QtWidgets.QLineEdit(str(PORT))
-        self.btn_set = QtWidgets.QPushButton("设置端口")
+        self.btn_set = QtWidgets.QPushButton("连接")
         self.btn_set.setObjectName("btnSet")
+        self.btn_close = QtWidgets.QPushButton("关闭")
+        self.btn_close.setObjectName("btnClose")
 
         ip_hboxlayer = QtWidgets.QHBoxLayout()
         for item in [self.lb_ip, self.txt_ip]:
             ip_hboxlayer.addWidget(item)
         port_hboxlayer = QtWidgets.QHBoxLayout()
-        for item in [self.lb_port, self.txt_port, self.btn_set]:
+        for item in [self.lb_port, self.txt_port, self.btn_set, self.btn_close]:
             port_hboxlayer.addWidget(item)
         # hboxlayer.addWidget(self.lb_ip)
         # hboxlayer.addWidget(self.txt_ip)
@@ -35,14 +37,24 @@ class UI_Client(object):
         vboxlayer_1.addWidget(self.lb_userlist)
         vboxlayer_1.addWidget(self.lv_userlist)
 
+        #设置用户名
+        user_hboxlayer = QtWidgets.QHBoxLayout()
+        self.lb_name = QtWidgets.QLabel("用户名")
+        self.txt_name = QtWidgets.QLineEdit("default")
+        self.btn_name = QtWidgets.QPushButton("重命名")
+        self.btn_name.setObjectName("btnName")
+        for item in [self.lb_name, self.txt_name, self.btn_name]:
+            user_hboxlayer.addWidget(item)
+
         # 聊天记录
         vboxlayer_2 = QtWidgets.QVBoxLayout()
         self.lb_msg = QtWidgets.QLabel()
-        self.tbrs_msg = QtWidgets.QTextBrowser()
+        self.tbrs_msg = QtWidgets.QTextEdit()
 
         # ip, port控件添加
         vboxlayer_2.addLayout(ip_hboxlayer)
         vboxlayer_2.addLayout(port_hboxlayer)
+        vboxlayer_2.addLayout(user_hboxlayer)
         vboxlayer_2.addWidget(self.lb_msg)
         vboxlayer_2.addWidget(self.tbrs_msg)
 
@@ -75,3 +87,4 @@ class UI_Client(object):
         self.lb_msg.setText(_translate("Form", "聊天记录"))
 
         self.btn_send.setText(_translate("Form", "Send"))
+        self.btn_name.setText(_translate("Form", "重命名"))

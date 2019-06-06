@@ -3,8 +3,7 @@
 """
 from PyQt5.QtCore import QThread, pyqtSignal
 
-from server.src.tools.tcpsocket import TcpSocket
-
+from tcpsocket import TcpSocket
 
 class Thread(QThread):
     """
@@ -19,6 +18,7 @@ class Thread(QThread):
         self.socket_id = socket_id
 
     def run(self):
+        print("thread running......")
         socket = TcpSocket(self.socket_id)
         if not socket.setSocketDescriptor(self.socket_id):
             return
@@ -27,6 +27,12 @@ class Thread(QThread):
         socket.sign_recv.connect(self.sign_thread_recv)
         # 线程得到tcpServer中的信息，然后交付给socket发送出去
         self.sign_thread_send.connect(socket.sign_send)
+        socket.disconnected.connect(self.finished)
+        socket.disconnected.connect(self.close)
 
         self.exec_()
+
+    def close(self):
+        self.exit()
+        print("thread running state is: ", self.isRunning())
 

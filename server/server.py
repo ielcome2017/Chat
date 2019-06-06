@@ -1,14 +1,12 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtNetwork import QHostAddress
 
-import sys
-sys.path.insert(0, "../../")    # 把上级目录添加到环境变量中
 
-from server.src.tools.tcpserver import TcpServer
-from server.src.ui.ui_server import UI_Server
+from tcpserver import TcpServer
+from ui_server import UI_Server
+
 
 PORT = 10086
-
 
 class Server(QtWidgets.QWidget, UI_Server):
 
